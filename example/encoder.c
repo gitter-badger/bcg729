@@ -98,6 +98,9 @@ int main(int argc, char *argv[] )
 	}
 	closeBcg729EncoderChannel(encoderChannelContext);
 
+        fclose(fpBinOutput);
+        fclose(fpBinInput);
+
 	/* Perf measurement: uncomment next line to print cpu usage */
 	printf("Encode %d frames in %f seconds : %f us/frame\n", framesNbr, cpu_time_used/CLOCKS_PER_SEC, cpu_time_used*1000000/((double)framesNbr*CLOCKS_PER_SEC));
 

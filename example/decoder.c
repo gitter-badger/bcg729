@@ -50,7 +50,6 @@ int main(int argc, char *argv[] )
 	FILE *fpBinOutput;
 
 	/*** input and output buffers ***/
-	uint16_t inputBuffer[NB_PARAMETERS+1]; /* input buffer: an array containing the 15 parameters and the frame erasure flag */
 	uint8_t bitStream[10]; /* binary input for the decoder */
 	int16_t outputBuffer[L_FRAME]; /* output buffer: the reconstructed signal */ 
 
@@ -77,13 +76,13 @@ int main(int argc, char *argv[] )
 	bcg729DecoderChannelContextStruct *decoderChannelContext = initBcg729DecoderChannel();
 
 	/*** initialisation complete ***/
+
 	/* perf measurement */
 	clock_t start, end;
 	double cpu_time_used=0.0;
 	int framesNbr =0;
+
 	/* perf measurement */
-	/*** loop over input file ***/
-        size_t result;
 	while(1) {
           uint8_t frameErasureFlag = 0;
                    framesNbr++;
@@ -103,6 +102,9 @@ int main(int argc, char *argv[] )
 	}
 
 	closeBcg729DecoderChannel(decoderChannelContext);
+
+        fclose(fpBinOutput);
+        fclose(fpBinInput);
 
 	/* Perf measurement: uncomment next line to print cpu usage */
 	printf("Decode %d frames in %f seconds : %f us/frame\n", framesNbr, cpu_time_used/CLOCKS_PER_SEC, cpu_time_used*1000000/((double)framesNbr*CLOCKS_PER_SEC));
