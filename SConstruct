@@ -41,4 +41,7 @@ tests = [adaptativeCodebookSearchTest, computeAdaptativeCodebookGainTest, comput
          decodeLSPTest, decoderMultiChannelTest, decoderTest, encoderMultiChannelTest, encoderTest, findOpenLoopPitchDelayTest, fixedCodebookSearchTest, g729FixedPointMathTest, gainQuantizationTest,
          interpolateqLSPAndConvert2LPTest, LP2LSPConversionTest, LPSynthesisFilterTest, LSPQuantizationTest, postFilterTest, postProcessingTest, preProcessingTest]
 
-env.Default([libbcg729, tests])
+decoder = env.Program(source=["example/decoder.c"], LIBS=[libbcg729])
+encoder = env.Program(source=["example/encoder.c"], LIBS=[libbcg729])
+
+env.Default([libbcg729, tests, decoder, encoder])
